@@ -9,6 +9,8 @@
     <p>Make a series of colors lighter/darker by in/decreasing the RGB values by a percentage (in a set amount of steps) until they reach either 255 or zero.</p>
     <label for="darker_or_lighter">Toggle Lighten/Darken</label>
     <input id="darker_or_lighter" type="checkbox" checked="checked" onclick="doSomething();" /><br>
+    <label for="show_hex">Show hexadecimal color codes</label>
+    <input id="show_hex" type="checkbox" checked="checked" onclick="doSomething();" /><br>
     <label for="steps">Steps</label>
     <input id="steps" type="number" onchange="doSomething();" min="0" max="255" step="1" value="5" /><br>
     <textarea id="input" rows="20">
@@ -17,10 +19,8 @@
 rgb(0, 163, 66)
 #03F
 #0b8e8a</textarea><br>
-    <table id="output"></table>
-
+    <table id="output"></table><br>
     <a href="https://github.com/JorisJ1/BatchColorLightenDarkenTool">Project on Github</a>
-
     <script src="script.js"></script>
 </body>
 </html> 

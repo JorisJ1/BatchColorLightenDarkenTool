@@ -5,6 +5,13 @@
  */
  var makeLighter = true;
 
+ /**
+ * If set to true, the output shows the color in hexadecimal format.
+ * 
+ * @type {Boolean}
+ */
+ var showAsHex = false;
+
  document.addEventListener("DOMContentLoaded", function(){
     doSomething();
     
@@ -13,6 +20,7 @@
  function doSomething() {
     var colors = readInput();
     makeLighter = document.getElementById('darker_or_lighter').checked;
+    showAsHex = document.getElementById('show_hex').checked;
 
     showOutput(colors);
 
@@ -84,6 +92,7 @@ function showOutput(colors) {
 
     var redIncrease, greenIncrease, blueIncrease;
     var newRed, newGreen, newBlue;
+    var colorOutput = '';
 
     // Do for each color.
     for (i = 0; i < colorCount; i++) {
@@ -101,8 +110,14 @@ function showOutput(colors) {
             newGreen = parseInt(color.green) + greenIncrease;
             newBlue = parseInt(color.blue) + blueIncrease;
 
+            if (showAsHex) {
+                colorOutput = rgbToHex(newRed, newGreen, newBlue);
+            } else {
+                colorOutput = newRed + ', ' + newGreen + ', ' + newBlue;
+            }
+
             var td = document.createElement('td');
-            td.textContent = newRed + ',' + newGreen + ',' + newBlue;
+            td.textContent = colorOutput;
             td.style.backgroundColor = 'rgb(' + newRed + ', ' + newGreen + ', ' + newBlue + ')';
             tr.appendChild(td);
         }
@@ -113,6 +128,8 @@ function showOutput(colors) {
 
 /**
  * Convert a hexadecimal color to RGB.
+ *
+ * Source: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
  */
  function hexToRgb(hex) {
 
@@ -128,6 +145,20 @@ function showOutput(colors) {
     color.green = parseInt(result[2], 16);
     color.blue = parseInt(result[3], 16);
     return color;
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+/**
+ * Convert a RGB color to hex.
+ *
+ * Source: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+ */
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
 function calculateColorIncrease(currentValue, step, steps) {
